@@ -38,9 +38,9 @@ if k == "sin":
 
 if k == "sqr":
 
-    square = 0.5 * signal.square(2 * np.pi * f * time + p) + 0.5
+    sqr = 0.5 * signal.square(2 * np.pi * f * time + p) + 0.5
 
-    plt.plot(time, square)
+    plt.plot(time, sqr)
     plt.xlabel('Time (s)')
     plt.ylabel('Amplitude')
     plt.title('Square wave')
@@ -50,9 +50,9 @@ if k == "sqr":
 
 if k == "tri":
 
-    triangle = signal.sawtooth(2 * np.pi * f * time + p, 0.5)
+    tri = signal.sawtooth(2 * np.pi * f * time + p, 0.5)
 
-    plt.plot(time, triangle)
+    plt.plot(time, tri)
     plt.xlabel('Time (s)')
     plt.ylabel('Amplitude')
     plt.title('Triangle wave')
@@ -62,12 +62,12 @@ if k == "tri":
 
 if k == "sth":
 
-    sawtooth = signal.sawtooth(2 * np.pi * f * time + p)
+    sth = signal.sawtooth(2 * np.pi * f * time + p)
 
-    plt.plot(time, sawtooth)
+    plt.plot(time, sth)
     plt.xlabel('Time (s)')
     plt.ylabel('Amplitude')
-    plt.title('Triangle wave')
+    plt.title('Sawtooth wave')
     plt.show()
 
     sf.write(name, sth, sr, subtype='PCM_24')
