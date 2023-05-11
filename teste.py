@@ -43,18 +43,36 @@ if __name__ == '__main__':
 		for comb2 in itertools.combinations(audios, i):
 			mix = sum(comb2)#/i
 			combaudios.append(mix)
-	print(combaudios)
+	#print(combaudios)
 
-	for i in range (0, len(combaudios)):
-		size = len(combaudios[i])
+	#for i in range (0, len(combaudios)):
+	#	size = len(combaudios[i])
+	#	time = np.linspace(0, size, size, False)
+	#	plt.plot(time/sr, combaudios[i])
+	#	plt.xlabel('Time (s)')
+	#	plt.ylabel('Amplitude')
+	#	plt.title(combnames[i])
+	#	plt.show()
+	
+	rms = []
+	for comb3 in combaudios:
+		rms_extracted = librosa.feature.rms(y=comb3,  hop_length=1)
+		rms.append(rms_extracted)
+	
+	for i in range (0, len(rms)):
+		aux = rms[i]
+		size = aux[0]
+		print(size)
 		time = np.linspace(0, size, size, False)
-		plt.plot(time, combaudios[i])
+		plt.plot(time/sr, rms[i])
 		plt.xlabel('Time (s)')
-		plt.ylabel('Amplitude')
+		plt.ylabel('Energy RMS')
 		plt.title(combnames[i])
 		plt.show()
-	
-	
+
+
+#	librosa.display.waveshow(rms[0], sr=tag.samplerate)
+#	plt.show()	
 	
 	
 	
@@ -111,11 +129,4 @@ if __name__ == '__main__':
 #		filename = combnames[i] + ".wav"
 #		sf.write(filename, audio, samplerate=tag.samplerate)
 
-#	rms = []
-#	for comb3 in combaudios:
-#		rms_extracted = librosa.feature.rms(y=comb3,  hop_length=tag.samplerate)
-#		rms.append(rms_extracted[0])
-	#print(rms)
 
-#	librosa.display.waveshow(rms[0], sr=tag.samplerate)
-#	plt.show()
