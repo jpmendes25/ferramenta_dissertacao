@@ -45,38 +45,15 @@ if __name__ == '__main__':
 			combaudios.append(mix)
 	#print(combaudios)
 
-	#for i in range (0, len(combaudios)):
-	#	size = len(combaudios[i])
-	#	time = np.linspace(0, size, size, False)
-	#	plt.plot(time/sr, combaudios[i])
-	#	plt.xlabel('Time (s)')
-	#	plt.ylabel('Amplitude')
-	#	plt.title(combnames[i])
-	#	plt.show()
-	
-	rms = []
-	for comb3 in combaudios:
-		rms_extracted = librosa.feature.rms(y=comb3,  hop_length=1)
-		rms.append(rms_extracted)
-	
-	for i in range (0, len(rms)):
-		aux = rms[i]
-		size = aux[0]
-		print(size)
+	for i in range (0, len(combaudios)):
+		size = len(combaudios[i])
 		time = np.linspace(0, size, size, False)
-		plt.plot(time/sr, rms[i])
+		plt.plot(time/sr, combaudios[i])
 		plt.xlabel('Time (s)')
-		plt.ylabel('Energy RMS')
+		plt.ylabel('Amplitude')
 		plt.title(combnames[i])
 		plt.show()
 
-
-#	librosa.display.waveshow(rms[0], sr=tag.samplerate)
-#	plt.show()	
-	
-	
-	
-	
 	#for i in range(0, len(names_no_wav)):
 	#	name_inv = names_no_wav[i] + "_inv"
 	#	names_no_wav.append(name_inv)
@@ -87,7 +64,7 @@ if __name__ == '__main__':
 	#for i in range(0, len(audios)):
 	#	audio_inv = np.multiply(audios[i], -1)
 	#	audios_inv.append(audio_inv)
-	#print(audios_inv)	
+	#print(audios_inv)
 
 	#combnames_all = []
 	#for comb3 in itertools.combinations(names_no_wav, len(names)):
@@ -129,4 +106,21 @@ if __name__ == '__main__':
 #		filename = combnames[i] + ".wav"
 #		sf.write(filename, audio, samplerate=tag.samplerate)
 
+#	rms = []
+#	for comb3 in combaudios:
+#		rms_extracted = librosa.feature.rms(y=comb3,  hop_length=1)
+#		rms.append(rms_extracted)
 
+#	for i in range (0, len(rms)):
+#		aux = rms[i]
+#		size = aux[0]
+#		print(size)
+#		time = np.linspace(0, size, size, False)
+#		plt.plot(time/sr, rms[i])
+#		plt.xlabel('Time (s)')
+#		plt.ylabel('Energy RMS')
+#		plt.title(combnames[i])
+#		plt.show()
+
+#	librosa.display.waveshow(rms[0], sr=tag.samplerate)
+#	plt.show()

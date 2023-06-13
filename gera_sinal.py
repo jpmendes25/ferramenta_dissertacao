@@ -1,8 +1,15 @@
 import numpy as np
 import soundfile as sf
-import matplotlib.pyplot as plt
+
 from scipy import signal
 import argparse
+
+import sin_generator
+import sqr_generator
+import tri_generator
+import sth_generator
+import signal_plotter
+import audio_converter
 
 parser = argparse.ArgumentParser()
 
@@ -20,54 +27,19 @@ p = args.phase
 sr = args.sample_rate
 t = args.duration_time
 
-time = np.linspace(0, t/1000, int(t/1000 * sr), False)
+if k == 'sin':
+    time, signal_name = sin_generator.sin_generator(f, p, sr, t)
 
-name = k+"_"+str(f)+"Hz_"+str(p)+"degree_"+str(sr)+"Hz_"+str(t)+"ms"+".wav"
+if k == 'sqr':
+    time, signal_name = sqr_generator.sqr_generator(f, p, sr, t)
 
-if k == "sin":
+if k == 'tri':
+    time, signal_name = tri_generator.tri_generator(f, p, sr, t)
 
-    sin = np.sin(2 * np.pi * f * time + np.deg2rad(p))
+if k == 'sth':
+    time, signal_name = sth_generator.sth_generator(f, p, sr, t)
 
-    plt.plot(time, sin)
-    plt.xlabel('Time (s)')
-    plt.ylabel('Amplitude')
-    plt.title('Sine wave')
-    plt.show()
+signal_plotter.signal_plotter(time, signal_name)
 
-    sf.write(name, sin, sr, subtype='PCM_24')
+audio_converter.audio_converter(signal_name, k, f, p, sr, t)
 
-if k == "sqr":
-
-    sqr = 0.5 * signal.square(2 * np.pi * f * time + p) + 0.5
-
-    plt.plot(time, sqr)
-    plt.xlabel('Time (s)')
-    plt.ylabel('Amplitude')
-    plt.title('Square wave')
-    plt.show()
-
-    sf.write(name, sqr, sr, subtype='PCM_24')
-
-if k == "tri":
-
-    tri = signal.sawtooth(2 * np.pi * f * time + p, 0.5)
-
-    plt.plot(time, tri)
-    plt.xlabel('Time (s)')
-    plt.ylabel('Amplitude')
-    plt.title('Triangle wave')
-    plt.show()
-
-    sf.write(name, tri, sr, subtype='PCM_24')
-
-if k == "sth":
-
-    sth = signal.sawtooth(2 * np.pi * f * time + p)
-
-    plt.plot(time, sth)
-    plt.xlabel('Time (s)')
-    plt.ylabel('Amplitude')
-    plt.title('Sawtooth wave')
-    plt.show()
-
-    sf.write(name, sth, sr, subtype='PCM_24')
